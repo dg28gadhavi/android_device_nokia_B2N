@@ -1,2 +1,3 @@
-add_lunch_combo omni_plus-eng
-add_lunch_combo omni_plus-userdebug
+add_lunch_combo omni_B2N-eng
+add_lunch_combo omni_B2N-userdebug
+add_lunch_combo omni_B2N-user

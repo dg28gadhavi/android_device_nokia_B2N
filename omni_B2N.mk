@@ -47,16 +47,16 @@ PRODUCT_PACKAGES += \
     update_verifier
 
 # The following modules are included in debuggable builds only.
-PRODUCT_PACKAGES_DEBUG += \
+PRODUCT_PACKAGES += \
     bootctl \
     update_engine_client
 
 # Boot control HAL
-#PRODUCT_PACKAGES += \
-#    bootctrl.sdm660
+PRODUCT_PACKAGES += \
+    bootctrl.sdm660
 
-#PRODUCT_STATIC_BOOT_CONTROL_HAL := \
-#    bootctrl.sdm660 \
+PRODUCT_STATIC_BOOT_CONTROL_HAL := \
+    bootctrl.sdm660 \
     libz
 
 # adbd
@@ -94,12 +94,13 @@ PRODUCT_PACKAGES += \
     charger_res_images \
     charger
 
-# Time Zone data for recovery
-#PRODUCT_COPY_FILES += \
-#bionic/libc/zoneinfo/tzdata:recovery/root/system/usr/share/zoneinfo/tzdata
+# ROM fstab
+PRODUCT_COPY_FILES += \
+  device/nokia/B2N/rootdir/root/fstab.qcom:root/fstab.B2N
 
-PRODUCT_DEVICE := plus
-PRODUCT_NAME := omni_plus
+
+PRODUCT_DEVICE := B2N
+PRODUCT_NAME := omni_B2N
 PRODUCT_BRAND := Nokia
-PRODUCT_MODEL := plus
+PRODUCT_MODEL := B2N
 PRODUCT_MANUFACTURER := Nokia

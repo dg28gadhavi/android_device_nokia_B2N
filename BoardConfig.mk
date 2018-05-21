@@ -22,7 +22,7 @@
 #
 
 #
-DEVICE_FOLDER := device/nokia/plus
+DEVICE_FOLDER := device/nokia/B2N
 #
 
 # Bootloader
@@ -51,7 +51,7 @@ TARGET_HW_DISK_ENCRYPTION := true
 
 # Kernel
 BOARD_NAME := Qualcomm
-BOARD_KERNEL_CMDLINE := console=ttyMSM0,115200,n8 androidboot.console=ttyMSM0 earlycon=msm_serial_dm,0xc170000 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 sched_enable_hmp=1 sched_enable_power_aware=1 service_locator.enable=1 swiotlb=1 androidboot.configfs=true androidboot.usbcontroller=a800000.dwc3 buildvariant=eng veritykeyid=id:8f56f02c61394639f13af4e8cfe02d087e41b936 androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE := console=ttyMSM0,115200,n8 androidboot.console=ttyMSM0 earlycon=msm_serial_dm,0xc170000 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 sched_enable_hmp=1 sched_enable_power_aware=1 service_locator.enable=1 swiotlb=1 androidboot.configfs=true androidboot.usbcontroller=a800000.dwc3 buildvariant=eng androidboot.fastboot=1 androidboot.selinux=permissive 
 BOARD_KERNEL_BASE        := 0x00000000
 BOARD_KERNEL_OFFSET := 0x00008000
 BOARD_KERNEL_PAGESIZE    := 4096
@@ -63,7 +63,7 @@ BOARD_MKBOOTIMG_ARGS := --board $(BOARD_NAME) --base $(BOARD_KERNEL_BASE) --page
 # Prebuilt
 TARGET_PREBUILT_KERNEL := $(DEVICE_FOLDER)/prebuilt/Image.gz-dtb
 TARGET_PREBUILT_RECOVERY_KERNEL := $(DEVICE_FOLDER)/prebuilt/Image.gz-dtb
-TARGET_RECOVERY_FSTAB := $(DEVICE_FOLDER)/recovery.fstab
+TARGET_RECOVERY_FSTAB := $(DEVICE_FOLDER)/twrp.fstab
 
 # Partitions
 BOARD_HAS_LARGE_FILESYSTEM := true
@@ -78,48 +78,44 @@ TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USES_MKE2FS := true
 
 # Graphics
-BOARD_USE_FRAMEBUFFER_ALPHA_CHANNEL := true
-TARGET_DISABLE_TRIPLE_BUFFERING := false
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBA_8888"
 TARGET_RECOVERY_LCD_BACKLIGHT_PATH := /sys/class/leds/lcd-backlight/brightness
 BRIGHTNESS_SYS_FILE := /sys/class/leds/lcd-backlight/brightness
+
+# Selinux 
 RECOVERY_NEED_SELINUX_FIX := true
-RECOVERY_GRAPHICS_USE_LINELENGTH := true
-RECOVERY_SDCARD_ON_DATA := true
-
-# Recovery
-BOARD_HAS_NO_REAL_SDCARD := true
-BOARD_SUPPRESS_SECURE_ERASE := true
-TW_THEME := portrait_hdpi
-TWRP_NEW_THEME := true
-TW_MAX_BRIGHTNESS := 255
-TW_DEFAULT_BRIGHTNESS := 26
-TW_DEFAULT_LANGUAGE := en
-TW_EXCLUDE_SUPERSU := true
-TWHAVE_SELINUX := true
-TARGET_RECOVERY_QCOM_RTC_FIX := true
-TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
-TW_CUSTOM_BATTERY_PATH := /sys/devices/platform/battery/power_supply/battery
-TW_CUSTOM_CPU_TEMP_PATH := /sys/devices/virtual/thermal/thermal_zone1/temp
-TW_INTERNAL_STORAGE_PATH := "/data/media"
-TW_INTERNAL_STORAGE_MOUNT_POINT := "sdcard"
-TW_EXTERNAL_STORAGE_PATH := "/external_sd"
-TW_EXTERNAL_STORAGE_MOUNT_POINT := "external_sd"
-TW_EXCLUDE_DEFAULT_USB_INIT := true
-TW_EXTRA_LANGUAGES := true
-TW_INCLUDE_CRYPTO := true
-TW_INCLUDE_NTFS_3G := true
-TW_IGNORE_MISC_WIPE_DATA := true
-TW_INPUT_BLACKLIST := "hbtp_vm"
-TW_SCREEN_BLANK_ON_BOOT := true
-TW_EXCLUDE_TWRPAPP := true
-
-# Vold
-TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storage/lun/file
-BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
-BOARD_HAS_REMOVABLE_STORAGE := true
 
 # Vendor
 TARGET_COPY_OUT_VENDOR := vendor
 
+# Recovery
+
+BOARD_HAS_NO_REAL_SDCARD := true
+TWRP_NEW_THEME := true
+TW_THEME := portrait_hdpi
+BOARD_SUPPRESS_SECURE_ERASE := true
+TARGET_RECOVERY_QCOM_RTC_FIX := true
+TW_INPUT_BLACKLIST := "hbtp_vm"
+TW_MAX_BRIGHTNESS := 255
+TW_DEFAULT_BRIGHTNESS := "80"
+TW_DEFAULT_LANGUAGE := en
+TW_EXTRA_LANGUAGES := true
+#TW_INCLUDE_CRYPTO := true
+AB_OTA_UPDATER := true
+#TWRP_INCLUDE_LOGCAT := true
+TARGET_USES_LOGD := true
+#TW_USE_TOOLBOX := true
+TW_EXCLUDE_DEFAULT_USB_INIT := true
+TW_INCLUDE_NTFS_3G := true
+TW_IGNORE_MISC_WIPE_DATA := true
+TW_SCREEN_BLANK_ON_BOOT := true
+TARGET_RECOVERY_DEVICE_MODULES += android.hardware.boot@1.0
+TW_RECOVERY_ADDITIONAL_RELINK_FILES := out/target/product/B2N/system/lib64/android.hardware.boot@1.0.so
+
+# Mount
+
+TW_INTERNAL_STORAGE_PATH := "/data/media"
+TW_INTERNAL_STORAGE_MOUNT_POINT := "sdcard"
+TW_EXTERNAL_STORAGE_PATH := "/external_sd"
+TW_EXTERNAL_STORAGE_MOUNT_POINT := "external_sd"
 

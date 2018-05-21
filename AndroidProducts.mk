@@ -15,4 +15,4 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/omni_plus.mk
+    $(LOCAL_DIR)/omni_B2N.mk
