@@ -110,7 +110,8 @@ TW_INCLUDE_NTFS_3G := true
 TW_IGNORE_MISC_WIPE_DATA := true
 TW_SCREEN_BLANK_ON_BOOT := true
 TARGET_RECOVERY_DEVICE_MODULES += android.hardware.boot@1.0
-TW_RECOVERY_ADDITIONAL_RELINK_FILES := out/target/product/B2N/system/lib64/android.hardware.boot@1.0.so
+#TW_RECOVERY_ADDITIONAL_RELINK_FILES := 
+#out/target/product/B2N/system/lib64/android.hardware.boot@1.0.so
 
 # Mount
 

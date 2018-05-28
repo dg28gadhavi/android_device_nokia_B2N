@@ -68,7 +68,7 @@ PRODUCT_PACKAGES += \
     update_verifier
 
 # The following modules are included in debuggable builds only.
-PRODUCT_PACKAGES += \
+PRODUCT_PACKAGES_DEBUG += \
     bootctl \
     update_engine_client
 
@@ -78,6 +78,7 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_STATIC_BOOT_CONTROL_HAL := \
     bootctrl.sdm660 \
+    libgptutils \
     libsparse \
     libz
 
