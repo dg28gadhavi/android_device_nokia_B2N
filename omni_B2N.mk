@@ -34,11 +34,32 @@ AB_OTA_PARTITIONS += \
     system \
     vendor
 
+# A/B OTA dexopt package
+PRODUCT_PACKAGES += otapreopt_script
+
+# A/B OTA dexopt update_engine hookup
 AB_OTA_POSTINSTALL_CONFIG += \
     RUN_POSTINSTALL_system=true \
     POSTINSTALL_PATH_system=system/bin/otapreopt_script \
     FILESYSTEM_TYPE_system=ext4 \
     POSTINSTALL_OPTIONAL_system=true
+
+#Reduce cost of scrypt for FBE CE decryption
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.crypto.scrypt_params=13:3:1
+
+# Set if a device image has the VTS coverage instrumentation.
+ifeq ($(NATIVE_COVERAGE),true)
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.vts.coverage=1
+PRODUCT_SUPPORTS_VERITY_FEC := false
+endif
+
+# b/35633646
+# Statically linked toybox for modprobe in recovery mode
+PRODUCT_PACKAGES += \
+    toybox_static
+
 
 PRODUCT_PACKAGES += \
     otapreopt_script \
@@ -94,9 +115,23 @@ PRODUCT_PACKAGES += \
     charger_res_images \
     charger
 
+# Setup dm-verity configs
+PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/platform/soc/c0c4000.sdhci/by-name/system
+PRODUCT_VENDOR_VERITY_PARTITION := /dev/block/platform/soc/c0c4000.sdhci/by-name/vendor
+$(call inherit-product, build/target/product/verity.mk)
+
+
+# Partitions (listed in the file) to be wiped under recovery.
+TARGET_RECOVERY_WIPE := \
+    device/nokia/B2N/recovery.wipe.common
+
 # ROM fstab
 PRODUCT_COPY_FILES += \
   device/nokia/B2N/rootdir/root/fstab.qcom:root/fstab.B2N
+
+# OEM Unlock reporting
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    ro.oem_unlock_supported=1
 
 
 PRODUCT_DEVICE := B2N
