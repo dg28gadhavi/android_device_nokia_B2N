@@ -32,7 +32,9 @@ AB_OTA_UPDATER := true
 AB_OTA_PARTITIONS += \
     boot \
     system \
-    vendor
+    vendor \
+    keymaster \
+    splash
 
 # A/B OTA dexopt package
 PRODUCT_PACKAGES += otapreopt_script
@@ -43,6 +45,10 @@ AB_OTA_POSTINSTALL_CONFIG += \
     POSTINSTALL_PATH_system=system/bin/otapreopt_script \
     FILESYSTEM_TYPE_system=ext4 \
     POSTINSTALL_OPTIONAL_system=true
+
+# Crypto
+PRODUCT_PACKAGES += \
+    libcryptfs_hw
 
 #Reduce cost of scrypt for FBE CE decryption
 PRODUCT_PROPERTY_OVERRIDES += \
