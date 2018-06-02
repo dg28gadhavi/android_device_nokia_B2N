@@ -25,6 +25,10 @@
 DEVICE_FOLDER := device/nokia/B2N
 #
 
+# OTA assert
+TARGET_OTA_ASSERT_DEVICE := Nokia7+,Nokia7plus,Nokia_7_+,Nokia_7_plus,B2N,B2N_sprout,nokia7+,nokia7plus,nokia_7_+,nokia_7_plus,Nokia_7plus,nokia_7plus,Nokia_7+,nokia_7+,b2n_sprout,7plus,7+,b2n
+
+
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := sdm660
 TARGET_NO_BOOTLOADER := true
