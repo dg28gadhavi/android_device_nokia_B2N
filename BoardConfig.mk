@@ -132,8 +132,8 @@ BOARD_HAS_REMOVABLE_STORAGE := true
 #TARGET_USE_CUSTOM_LUN_FILE_PATH := 
 #/sys/devices/platform/msm_hsusb/gadget/lun0/file
 TARGET_RECOVERY_DEVICE_MODULES += android.hardware.boot@1.0
-#TW_RECOVERY_ADDITIONAL_RELINK_FILES :=
-#out/target/product/B2N/system/lib64/android.hardware.boot@1.0.so
+TW_RECOVERY_ADDITIONAL_RELINK_FILES := 
+out/target/product/B2N/system/lib64/android.hardware.boot@1.0.so
 
 # Mount
 
