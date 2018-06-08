@@ -4,12 +4,12 @@
 
 # mount point    fstype     device                 device2                        flags
 
-/boot            emmc              /dev/block/bootdevice/by-name/boot       flags=slotselect
-/system          ext4              /dev/block/bootdevice/by-name/system     flags=slotselect
-/system_image    emmc              /dev/block/bootdevice/by-name/system     flags=slotselect
+/boot            emmc              /dev/block/bootdevice/by-name/boot       flags=slotselect;backup=1
+/system          ext4              /dev/block/bootdevice/by-name/system     flags=slotselect;backup=1
+/system_image    emmc              /dev/block/bootdevice/by-name/system     flags=slotselect;backup=1
 /vendor          ext4              /dev/block/bootdevice/by-name/vendor     flags=slotselect;display="Vendor";backup=1
-/vendor_image    emmc              /dev/block/bootdevice/by-name/vendor     flags=slotselect
-/data            ext4      /dev/block/bootdevice/by-name/userdata                 flags=encryptable=footer
+/vendor_image    emmc              /dev/block/bootdevice/by-name/vendor     flags=slotselect;backup=1
+/data            ext4      /dev/block/bootdevice/by-name/userdata                 flags=encryptable=footer;backup=1
 /misc	         emmc              /dev/block/bootdevice/by-name/misc
 /efs1            emmc              /dev/block/bootdevice/by-name/modemst1   flags=backup=1;display=EFS
 /efs2            emmc              /dev/block/bootdevice/by-name/modemst2   flags=backup=1;subpartitionof=/efs1
