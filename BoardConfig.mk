@@ -69,7 +69,7 @@ BOARD_MKBOOTIMG_ARGS := --board $(BOARD_NAME) --base $(BOARD_KERNEL_BASE) --page
 # Prebuilt
 TARGET_PREBUILT_KERNEL := $(DEVICE_FOLDER)/prebuilt/Image.gz-dtb
 TARGET_PREBUILT_RECOVERY_KERNEL := $(DEVICE_FOLDER)/prebuilt/Image.gz-dtb
-TARGET_RECOVERY_FSTAB := $(DEVICE_FOLDER)/twrp.fstab
+TARGET_RECOVERY_FSTAB := $(DEVICE_FOLDER)/recovery.fstab
 
 # Qcom
 #BOARD_USES_QCOM_HARDWARE := true
@@ -99,6 +99,9 @@ BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBA_8888"
 TARGET_RECOVERY_LCD_BACKLIGHT_PATH := /sys/class/leds/lcd-backlight/brightness
 BRIGHTNESS_SYS_FILE := /sys/class/leds/lcd-backlight/brightness
+
+#Temperature
+TW_CUSTOM_CPU_TEMP_PATH := "/sys/devices/virtual/thermal/thermal_zone1/temp"
 
 # Selinux 
 RECOVERY_NEED_SELINUX_FIX := true
@@ -132,7 +135,7 @@ BOARD_HAS_REMOVABLE_STORAGE := true
 #TARGET_USE_CUSTOM_LUN_FILE_PATH := 
 #/sys/devices/platform/msm_hsusb/gadget/lun0/file
 TARGET_RECOVERY_DEVICE_MODULES += android.hardware.boot@1.0
-#TW_RECOVERY_ADDITIONAL_RELINK_FILES := out/target/product/B2N/system/lib64/android.hardware.boot@1.0.so
+TW_RECOVERY_ADDITIONAL_RELINK_FILES := ${OUT}/system/lib64/android.hardware.boot@1.0.so
 
 # Mount
 

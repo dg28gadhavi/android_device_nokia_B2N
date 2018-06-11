@@ -26,6 +26,8 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 # Inherit from our custom product configuration
 $(call inherit-product, vendor/omni/config/common.mk)
 
+$(call inherit-product, build/target/product/embedded.mk)
+
 # A/B updater
 AB_OTA_UPDATER := true
 
@@ -146,6 +148,18 @@ PRODUCT_COPY_FILES += \
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     ro.oem_unlock_supported=1
 
+# Define time zone data path
+ifneq ($(wildcard bionic/libc/zoneinfo),)
+    TZDATAPATH := bionic/libc/zoneinfo
+else ifneq ($(wildcard system/timezone),)
+    TZDATAPATH := system/timezone/output_data/iana
+endif
+
+# Time Zone data for Recovery
+ifdef TZDATAPATH
+PRODUCT_COPY_FILES += \
+    $(TZDATAPATH)/tzdata:recovery/root/system/usr/share/zoneinfo/tzdata
+endif
 
 PRODUCT_DEVICE := B2N
 PRODUCT_NAME := omni_B2N
