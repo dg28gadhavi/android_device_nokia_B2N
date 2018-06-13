@@ -30,18 +30,13 @@ syspath="/dev/block/bootdevice/by-name/system$suffix"
 mkdir /s
 mount -t ext4 -o ro "$syspath" /s
 
-device_codename=$(getprop ro.boot.hardware)
 is_fastboot_twrp=$(getprop ro.boot.fastboot)
 if [ ! -z "$is_fastboot_twrp" ]; then
-    #if [ "$device_codename" == "walleye" ]; then
-		# Note, this method only works on walleye as taimen still fetches the OS / patch information from the active boot slot even when fastboot booting
-		# Be sure to increase the PLATFORM_VERSION in build/core/version_defaults.mk to override Google's anti-rollback features to something rather insane
-		osver=$(getprop ro.build.version.release_orig)
-		patchlevel=$(getprop ro.build.version.security_patch_orig)
-		setprop ro.build.version.release "$osver"
-		setprop ro.build.version.security_patch "$patchlevel"
-		finish
-	#fi
+	osver=$(getprop ro.build.version.release_orig)
+	patchlevel=$(getprop ro.build.version.security_patch_orig)
+	setprop ro.build.version.release "$osver"
+	setprop ro.build.version.security_patch "$patchlevel"
+	finish
 fi
 
 if [ -f /s/system/build.prop ]; then
@@ -53,67 +48,56 @@ if [ -f /s/system/build.prop ]; then
 	finish
 else
 	# Be sure to increase the PLATFORM_VERSION in build/core/version_defaults.mk to override Google's anti-rollback features to something rather insane
-    osver=$(getprop ro.build.version_orig)
-    patchlevel=$(getprop ro.build.version.security_patch_orig)
+	osver=$(getprop ro.build.version.release_orig)
+	patchlevel=$(getprop ro.build.version.security_patch_orig)
 	setprop ro.build.version.release "$osver"
 	setprop ro.build.version.security_patch "$patchlevel"
 	finish
 fi
-finish
 
 ###### NOTE: The below is no longer used but I'm keeping it here in case it is needed again at some point!
-mkdir /vendor
-mkdir -p /odm/lib64/hw
-mkdir -p odm/firmware/ese/prodkeys/
-mkdir -p odm/firmware/ese/testkeys/
-mkdir -p /system/etc
-cp /event-log-tags /system/etc/event-log-tags
-cp /s/system/etc/event-log-tags /system/etc/event-log-tags
+mkdir -p /vendor/lib64/hw/
+
+cp /s/system/lib64/android.hidl.base@1.0.so /sbin/
+cp /s/system/lib64/libicuuc.so /sbin/
+cp /s/system/lib64/libxml2.so /sbin/
+
 relink /v/bin/qseecomd
-cp /v/lib64/libdiag.so /sbin/
-cp /v/lib64/libdrmfs.so /sbin/
-cp /v/lib64/libdrmtime.so /sbin/
-cp /v/lib64/libQSEEComAPI.so /sbin/
-cp /v/lib64/librpmb.so /sbin/
-cp /v/lib64/libssd.so /sbin/
-cp /v/lib64/libtime_genoff.so /sbin/
-cp /v/lib64/libgptutils.so /sbin/
-cp /v/lib64/libkeymasterdeviceutils.so /sbin/
-cp /v/etc/selinux/nonplat_hwservice_contexts /
-cp /v/etc/selinux/nonplat_service_contexts /
-cp /s/system/etc/selinux/plat_hwservice_contexts /
-cp /s/system/etc/selinux/plat_service_contexts /
+
+cp /v/lib64/libdiag.so /vendor/lib64/
+cp /v/lib64/libdrmfs.so /vendor/lib64/
+cp /v/lib64/libdrmtime.so /vendor/lib64/
+cp /v/lib64/libGPreqcancel.so /vendor/lib64/
+cp /v/lib64/libGPreqcancel_svc.so /vendor/lib64/
+cp /v/lib64/libqdutils.so /vendor/lib64/
+cp /v/lib64/libqisl.so /vendor/lib64/
+cp /v/lib64/libqservice.so /vendor/lib64/
+cp /v/lib64/libQSEEComAPI.so /vendor/lib64/
+cp /v/lib64/librecovery_updater_msm.so /vendor/lib64/
+cp /v/lib64/librpmb.so /vendor/lib64/
+cp /v/lib64/libsecureui.so /vendor/lib64/
+cp /v/lib64/libSecureUILib.so /vendor/lib64/
+cp /v/lib64/libsecureui_svcsock.so /vendor/lib64/
+cp /v/lib64/libspcom.so /vendor/lib64/
+cp /v/lib64/libspl.so /vendor/lib64/
+cp /v/lib64/libssd.so /vendor/lib64/
+cp /v/lib64/libStDrvInt.so /vendor/lib64/
+cp /v/lib64/libtime_genoff.so /vendor/lib64/
+cp /v/lib64/libkeymasterdeviceutils.so /vendor/lib64/
+cp /v/lib64/libkeymasterprovision.so /vendor/lib64/
+cp /v/lib64/libkeymasterutils.so /vendor/lib64/
+cp /v/lib64/vendor.qti.hardware.tui_comm@1.0_vendor.so /vendor/lib64/
+cp /v/lib64/hw/bootctrl.sdm660.so /vendor/lib64/hw/
+cp /v/lib64/hw/android.hardware.boot@1.0-impl.so /vendor/lib64/hw/
+cp /v/lib64/hw/android.hardware.gatekeeper@1.0-impl-qti.so /vendor/lib64/hw/
+cp /v/lib64/hw/android.hardware.keymaster@3.0-impl-qti.so /vendor/lib64/hw/
+
 cp /v/manifest.xml /vendor/
 cp /v/compatibility_matrix.xml /vendor/
-cp /v/lib64/hw/android.hardware.boot@1.0-impl.so /odm/lib64/hw/
-cp /v/lib64/hw/android.hardware.gatekeeper@1.0-impl-qti.so /odm/lib64/hw/
-cp /v/lib64/hw/android.hardware.keymaster@3.0-impl-qti.so /odm/lib64/hw/
-cp /v/lib64/hw/bootctrl.sdm660.so /odm/lib64/hw/
-relink /v/bin/esed
-# esed_load is needed but it's a shell script and we need a few small changes applied
-relink /v/bin/ese-ls-provision
-cp /s/system/lib64/android.hardware.weaver@1.0.so /sbin/
-cp /v/lib64/libp61-jcop-kit.so /sbin/
-cp /v/lib64/libese-app-boot.so /sbin/
-cp /v/lib64/libese-app-weaver.so /sbin/
-cp /v/lib64/libese_cpp_nxp_pn80t_nq_nci.so /sbin/
-cp /v/lib64/libese-hw-nxp-pn80t-nq-nci.so /sbin/
-cp /v/lib64/libese.so /sbin/
-cp /v/lib64/libese-sysdeps.so /sbin/
-cp /v/lib64/libese-teq1.so /sbin/
-cp /v/firmware/ese/prodkeys/ese.f000.prodkeys /odm/firmware/ese/prodkeys/
-cp /v/firmware/ese/prodkeys/ese.f102.prodkeys /odm/firmware/ese/prodkeys/
-cp /v/firmware/ese/prodkeys/ese.f200.prodkeys /odm/firmware/ese/prodkeys/
-cp /v/firmware/ese/prodkeys/ese.f201.prodkeys /odm/firmware/ese/prodkeys/
-cp /v/firmware/ese/prodkeys/ese.shadata.prodkeys /odm/firmware/ese/prodkeys/
-cp /v/firmware/ese/testkeys/ese.f000.testkeys /odm/firmware/ese/testkeys/
-cp /v/firmware/ese/testkeys/ese.f102.testkeys /odm/firmware/ese/testkeys/
-cp /v/firmware/ese/testkeys/ese.f200.testkeys /odm/firmware/ese/testkeys/
-cp /v/firmware/ese/testkeys/ese.f201.testkeys /odm/firmware/ese/testkeys/
-cp /v/firmware/ese/testkeys/ese.shadata.testkeys /odm/firmware/ese/testkeys/
-relink /v/bin/hw/android.hardware.keymaster@3.0-service-qti
+
 relink /v/bin/hw/android.hardware.boot@1.0-service
 relink /v/bin/hw/android.hardware.gatekeeper@1.0-service-qti
+relink /v/bin/hw/android.hardware.keymaster@3.0-service-qti
 
 finish
 exit 0

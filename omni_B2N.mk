@@ -26,7 +26,9 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 # Inherit from our custom product configuration
 $(call inherit-product, vendor/omni/config/common.mk)
 
+#
 $(call inherit-product, build/target/product/embedded.mk)
+#
 
 # A/B updater
 AB_OTA_UPDATER := true
@@ -51,17 +53,6 @@ AB_OTA_POSTINSTALL_CONFIG += \
 # Crypto
 PRODUCT_PACKAGES += \
     libcryptfs_hw
-
-#Reduce cost of scrypt for FBE CE decryption
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.crypto.scrypt_params=13:3:1
-
-# Set if a device image has the VTS coverage instrumentation.
-ifeq ($(NATIVE_COVERAGE),true)
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vts.coverage=1
-PRODUCT_SUPPORTS_VERITY_FEC := false
-endif
 
 # b/35633646
 # Statically linked toybox for modprobe in recovery mode
@@ -142,7 +133,7 @@ TARGET_RECOVERY_WIPE := \
 
 # ROM fstab
 PRODUCT_COPY_FILES += \
-  device/nokia/B2N/rootdir/root/fstab.qcom:root/fstab.B2N
+  device/nokia/B2N/rootdir/root/fstab.qcom:root/fstab.qcom
 
 # OEM Unlock reporting
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \

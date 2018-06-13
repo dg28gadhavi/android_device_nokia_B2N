@@ -119,3 +119,6 @@ on property:crypto.ready=0
     # Workaround for adb not coming up
     setprop sys.usb.config mtp,adb
     setprop sys.usb.config adb
+
+# qcom
+setprop ro.hardware qcom
