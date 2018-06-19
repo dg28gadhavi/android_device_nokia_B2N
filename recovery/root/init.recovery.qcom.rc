@@ -116,9 +116,6 @@ on property:crypto.ready=0
     stop gatekeeper-1-0
     stop servicemanager
 
-    # Workaround for adb not coming up
-    setprop sys.usb.config mtp,adb
-    setprop sys.usb.config adb
-
 # qcom
 setprop ro.hardware qcom
+setprop ro.treble.enabled true

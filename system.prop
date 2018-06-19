@@ -1,1 +1,2 @@
 ro.hardware=qcom
+ro.treble.enabled=true

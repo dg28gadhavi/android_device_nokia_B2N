@@ -96,8 +96,8 @@ cp /v/manifest.xml /vendor/
 cp /v/compatibility_matrix.xml /vendor/
 
 relink /v/bin/hw/android.hardware.boot@1.0-service
-relink /v/bin/hw/android.hardware.gatekeeper@1.0-service-qti
 relink /v/bin/hw/android.hardware.keymaster@3.0-service-qti
+relink /v/bin/hw/android.hardware.gatekeeper@1.0-service-qti
 
 finish
 exit 0
