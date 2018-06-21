@@ -52,8 +52,8 @@ TARGET_2ND_CPU_VARIANT := cortex-a53
 
 # Crypto
 TARGET_HW_DISK_ENCRYPTION := true
-TARGET_KEYMASTER_WAIT_FOR_QSEE := true
-TW_CRYPTO_USE_SYSTEM_VOLD := qseecomd
+TW_INCLUDE_CRYPTO := true
+TW_INCLUDE_FBE := true
 
 # Kernel
 BOARD_NAME := Qualcomm
@@ -99,6 +99,7 @@ BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBA_8888"
 TARGET_RECOVERY_LCD_BACKLIGHT_PATH := /sys/class/leds/lcd-backlight/brightness
 BRIGHTNESS_SYS_FILE := /sys/class/leds/lcd-backlight/brightness
+RECOVERY_GRAPHICS_USE_LINELENGTH := true
 
 #Temperature
 TW_CUSTOM_CPU_TEMP_PATH := "/sys/devices/virtual/thermal/thermal_zone1/temp"
@@ -122,18 +123,17 @@ TW_MAX_BRIGHTNESS := 255
 TW_DEFAULT_BRIGHTNESS := "80"
 TW_DEFAULT_LANGUAGE := en
 TW_EXTRA_LANGUAGES := true
-TW_INCLUDE_CRYPTO := true
 AB_OTA_UPDATER := true
-#TWRP_INCLUDE_LOGCAT := true
+TWRP_INCLUDE_LOGCAT := true
 TARGET_USES_LOGD := true
-#TW_USE_TOOLBOX := true
+TW_EXCLUDE_SUPERSU := true
 TW_EXCLUDE_DEFAULT_USB_INIT := true
-#TW_INCLUDE_NTFS_3G := true
+TW_INCLUDE_NTFS_3G := true
 TW_IGNORE_MISC_WIPE_DATA := true
 TW_SCREEN_BLANK_ON_BOOT := true
+TW_HAS_DOWNLOAD_MODE := true
 BOARD_HAS_REMOVABLE_STORAGE := true
-#TARGET_USE_CUSTOM_LUN_FILE_PATH := 
-#/sys/devices/platform/msm_hsusb/gadget/lun0/file
+TW_INCLUDE_FB2PNG := true
 TARGET_RECOVERY_DEVICE_MODULES += android.hardware.boot@1.0
 TW_RECOVERY_ADDITIONAL_RELINK_FILES := ${OUT}/system/lib64/android.hardware.boot@1.0.so
 
