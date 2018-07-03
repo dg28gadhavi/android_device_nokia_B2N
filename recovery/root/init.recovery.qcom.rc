@@ -115,8 +115,6 @@ on property:crypto.ready=0
 
 on property:crypto.ready=1
     start sbinqseecomd
-
-on property:sys.listeners.registered=true
     start keymaster-3-0
     start gatekeeper-1-0
     start servicemanager

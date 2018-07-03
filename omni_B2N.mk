@@ -51,8 +51,8 @@ AB_OTA_POSTINSTALL_CONFIG += \
     POSTINSTALL_OPTIONAL_system=true
 
 # Crypto
-PRODUCT_PACKAGES += \
-    libcryptfs_hw
+#PRODUCT_PACKAGES += \
+#   libcryptfs_hw
 
 # b/35633646
 # Statically linked toybox for modprobe in recovery mode
@@ -157,3 +157,6 @@ PRODUCT_NAME := omni_B2N
 PRODUCT_BRAND := Nokia
 PRODUCT_MODEL := B2N
 PRODUCT_MANUFACTURER := Nokia
+
+ # Security Patch Hack
+PLATFORM_SECURITY_PATCH := 2025-12-31

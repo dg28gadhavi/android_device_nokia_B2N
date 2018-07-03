@@ -52,8 +52,8 @@ TARGET_2ND_CPU_VARIANT := cortex-a53
 
 # Crypto
 TW_INCLUDE_CRYPTO := true
-TW_CRYPTO_USE_SYSTEM_VOLD := qseecomd hwservicemanager keymaster-3-0
-TARGET_KEYMASTER_WAIT_FOR_QSEE := true
+#TW_CRYPTO_USE_SYSTEM_VOLD := qseecomd hwservicemanager keymaster-3-0
+#TARGET_KEYMASTER_WAIT_FOR_QSEE := true
 
 # Kernel
 BOARD_NAME := Qualcomm
